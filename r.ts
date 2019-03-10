@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 const ce = React.createElement;
 
@@ -87,7 +87,7 @@ class ZipCode extends React.Component {
   state: {zip: string, response: string};
   defaultResponse: string;
   async handleChange(event: React.SyntheticEvent) {
-    let zip = event.target.value;
+    let zip = (event.target as any).value;
     let response = await zipToText(zip, this.defaultResponse);
     this.setState({zip, response});
   }
@@ -100,6 +100,34 @@ class ZipCode extends React.Component {
         ce('p', null, this.state.response || this.defaultResponse),
     )
   }
+}
+
+function HookyZipCode(props: any) {
+  const defaultResponse = props.defaultResponse || 'enter valid zip code';
+  const [zip, setZip] = useState('');
+  const [response, setResponse] = useState('');
+  return ce(
+      'div',
+      null,
+      ce(
+          'h1',
+          null,
+          'Now using ',
+          ce('a', {href: 'https://reactjs.org/docs/hooks-intro.html'}, 'React Hooks'),
+          '! Enter a US zip code, e.g., 90210 and 55555. Also try invalid zip codes like 12340 and 19888',
+          ),
+      ce('input', {
+        type: 'text',
+        value: zip,
+        onChange: async (event) => {
+          const newZip = event.target.value;
+          setZip(newZip);
+          const newResponse = await zipToText(newZip, defaultResponse);
+          setResponse(newResponse);
+        },
+      }),
+      ce('p', null, response || defaultResponse),
+  );
 }
 
 {
@@ -117,3 +145,4 @@ ReactDOM.render(ce(Clocks, {millis: [5e3, 4e3, 3e3, 2e3, 1e3]}), document.getEle
 // ReactDOM.render(ce(LogoutButton), document.getElementById('root'));
 ReactDOM.render(ce(LoginControl), document.getElementById('root6'));
 ReactDOM.render(ce(ZipCode), document.getElementById('root7'));
+ReactDOM.render(ce(HookyZipCode), document.getElementById('root8'));

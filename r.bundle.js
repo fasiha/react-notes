@@ -25147,11 +25147,18 @@ var __spread = (this && this.__spread) || function () {
     for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
     return ar;
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(require("react"));
+var react_1 = __importStar(require("react"));
 var react_dom_1 = __importDefault(require("react-dom"));
 var ce = react_1.default.createElement;
 var myname = 'Josh Perez';
@@ -25263,6 +25270,31 @@ var ZipCode = /** @class */ (function (_super) {
     };
     return ZipCode;
 }(react_1.default.Component));
+function HookyZipCode(props) {
+    var _this = this;
+    var defaultResponse = props.defaultResponse || 'enter valid zip code';
+    var _a = __read(react_1.useState(''), 2), zip = _a[0], setZip = _a[1];
+    var _b = __read(react_1.useState(''), 2), response = _b[0], setResponse = _b[1];
+    return ce('div', null, ce('h1', null, 'Now using ', ce('a', { href: 'https://reactjs.org/docs/hooks-intro.html' }, 'React Hooks'), '! Enter a US zip code, e.g., 90210 and 55555. Also try invalid zip codes like 12340 and 19888'), ce('input', {
+        type: 'text',
+        value: zip,
+        onChange: function (event) { return __awaiter(_this, void 0, void 0, function () {
+            var newZip, newResponse;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        newZip = event.target.value;
+                        setZip(newZip);
+                        return [4 /*yield*/, zipToText(newZip, defaultResponse)];
+                    case 1:
+                        newResponse = _a.sent();
+                        setResponse(newResponse);
+                        return [2 /*return*/];
+                }
+            });
+        }); },
+    }), ce('p', null, response || defaultResponse));
+}
 {
     var element = ce(Welcomer, { name: myname });
     react_dom_1.default.render(element, document.getElementById('root1'));
@@ -25278,6 +25310,7 @@ react_dom_1.default.render(ce(Clocks, { millis: [5e3, 4e3, 3e3, 2e3, 1e3] }), do
 // ReactDOM.render(ce(LogoutButton), document.getElementById('root'));
 react_dom_1.default.render(ce(LoginControl), document.getElementById('root6'));
 react_dom_1.default.render(ce(ZipCode), document.getElementById('root7'));
+react_dom_1.default.render(ce(HookyZipCode), document.getElementById('root8'));
 
 },{"react":10,"react-dom":7}]},{},[17])(17)
 });
