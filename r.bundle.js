@@ -25223,7 +25223,7 @@ function zipToText(zip, response) {
             switch (_a.label) {
                 case 0:
                     if (!/^[0-9]{5}$/.test(zip)) return [3 /*break*/, 4];
-                    return [4 /*yield*/, fetch('http://api.zippopotam.us/us/' + zip)];
+                    return [4 /*yield*/, fetch('https://api.zippopotam.us/us/' + zip)];
                 case 1:
                     fetched = _a.sent();
                     if (!fetched.ok) return [3 /*break*/, 3];

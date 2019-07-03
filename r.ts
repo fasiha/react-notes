@@ -66,7 +66,7 @@ class LoginControl extends React.Component {
 
 async function zipToText(zip: string, response: string = '') {
   if (/^[0-9]{5}$/.test(zip)) {
-    let fetched = await fetch('http://api.zippopotam.us/us/' + zip);
+    let fetched = await fetch('https://api.zippopotam.us/us/' + zip);
     if (fetched.ok) {
       let result = await fetched.json();
       response = `${result.places[0]['place name']}, ${result.places[0].state}`;
